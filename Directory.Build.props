@@ -1,0 +1,29 @@
+<Project>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <Deterministic>true</Deterministic>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PublishWindowsPdb>false</PublishWindowsPdb>
+        <IsPackable>True</IsPackable>
+        <IncludeSymbols>True</IncludeSymbols>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Product>Partial</Product>
+        <Authors>Isaac Kilbourne</Authors>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Copyright>Copyright (c) 2026 Isaac Kilbourne</Copyright>
+        <Description>Partial is a small library which makes it easier to define partial models with the ability to distinguish between values that are default because they weren't given, and values that are default because they were set that way.
+        </Description>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <NugetAuditLevel>moderate</NugetAuditLevel>
+    </PropertyGroup>
+</Project>

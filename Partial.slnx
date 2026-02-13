@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Partial.Core/Partial.Core.csproj" />
+  <Project Path="Partial.SystemTextJson/Partial.SystemTextJson.csproj" />
+</Solution>
