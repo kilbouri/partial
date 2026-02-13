@@ -1,6 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <SystemTextJsonVersion>8.0.5</SystemTextJsonVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>Partial.SystemTextJson</PackageId>
+    <Version>$(SystemTextJsonVersion)-rc1</Version>
+    <PackageTags>$(PackageTags),systemtextjson,system,text,system.text.json</PackageTags>
+  </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+    <PackageReference Include="System.Text.Json" Version="$(SystemTextJsonVersion)" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,5 @@
 <Project>
-    <PropertyGroup>
+    <PropertyGroup Label="Development">
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
@@ -7,23 +7,31 @@
         <Deterministic>true</Deterministic>
     </PropertyGroup>
 
-    <PropertyGroup>
+    <PropertyGroup Label="Packaging">
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PublishWindowsPdb>false</PublishWindowsPdb>
-        <IsPackable>True</IsPackable>
-        <IncludeSymbols>True</IncludeSymbols>
+        <IsPackable>true</IsPackable>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
-    <PropertyGroup>
+    <PropertyGroup Label="NuGet">
+        <NugetAuditLevel>moderate</NugetAuditLevel>
+
+        <PackageProjectUrl>https://github.com/kilbouri/partial</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/kilbouri/partial</RepositoryUrl>
+
         <Product>Partial</Product>
         <Authors>Isaac Kilbourne</Authors>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Copyright>Copyright (c) 2026 Isaac Kilbourne</Copyright>
-        <Description>Partial is a small library which makes it easier to define partial models with the ability to distinguish between values that are default because they weren't given, and values that are default because they were set that way.
-        </Description>
+        <Description>Partial is a small library which makes it easier to define partial models with the ability to distinguish between values that are default because they weren't given, and values that are default because they were set that way.</Description>
+
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageTags>patch,partial,json,deserialization,serialization,aspnet,aspnetcore,aspnetcorewebapi</PackageTags>
     </PropertyGroup>
 
-    <PropertyGroup>
-        <NugetAuditLevel>moderate</NugetAuditLevel>
-    </PropertyGroup>
+    <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
 </Project>

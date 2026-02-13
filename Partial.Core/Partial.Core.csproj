@@ -1,2 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <PackageId>Partial.Core</PackageId>
+        <Version>1.0.0-rc1</Version>
+    </PropertyGroup>
 </Project>
