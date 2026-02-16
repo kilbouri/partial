@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="Partial.Core/Partial.Core.csproj" />
+  <Project Path="Partial.SystemTextJson.Tests/Partial.SystemTextJson.Tests.csproj" Id="f9528d68-7bdb-47e4-90c0-cfd27e77f3e6" />
   <Project Path="Partial.SystemTextJson/Partial.SystemTextJson.csproj" />
 </Solution>
