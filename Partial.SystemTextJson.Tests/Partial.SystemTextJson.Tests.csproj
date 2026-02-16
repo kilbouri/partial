@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Partial.Core\Partial.Core.csproj" />
+    <!--<ProjectReference Include="..\Partial.Core\Partial.Core.csproj" />-->
     <ProjectReference Include="..\Partial.SystemTextJson\Partial.SystemTextJson.csproj" />
   </ItemGroup>
 
