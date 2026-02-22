@@ -1,0 +1,73 @@
+name: Build Project
+
+on:
+    workflow_dispatch:
+      inputs:
+            PROJECT_PATH:
+                description: "Path to project which should be built."
+                type: string
+                required: true
+            DOTNET_VERSION:
+                description: "Version of the .NET SDK to use."
+                type: string
+                required: true
+                default: 10.0.x
+            CONFIGURATION:
+                description: "Build configuration to use."
+                type: string
+                required: false
+                default: Release
+            BUILD_ARTIFACT_NAME:
+                description: Name of the artifact resulting from the build
+                type: string
+                required: true
+                default: build-output
+    workflow_call:
+        inputs:
+            PROJECT_PATH:
+                description: "Path to project which should be built."
+                type: string
+                required: true
+            DOTNET_VERSION:
+                description: "Version of the .NET SDK to use."
+                type: string
+                required: true
+            CONFIGURATION:
+                description: "Build configuration to use."
+                type: string
+                required: false
+                default: Release
+            BUILD_ARTIFACT_NAME:
+                description: Name of the artifact resulting from the build
+                type: string
+                required: true
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v3
+              with:
+                  dotnet-version: ${{ inputs.DOTNET_VERSION }}
+
+            - name: Restore
+              run: dotnet restore ${{ inputs.PROJECT_PATH }}
+
+            - name: Build
+              run: dotnet build ${{ inputs.PROJECT_PATH }} --configuration ${{ inputs.CONFIGURATION }} --no-restore
+
+            - name: Publish
+              run:
+                  dotnet publish ${{ inputs.PROJECT_PATH }} --configuration ${{ inputs.CONFIGURATION }} --no-build --output ./build
+
+            - name: Upload build artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: ${{ inputs.BUILD_ARTIFACT_NAME }}
+                  path: ./build

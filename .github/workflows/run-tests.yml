@@ -1,0 +1,46 @@
+name: Run Test Project
+
+on:
+  workflow_dispatch:
+    inputs:
+      CONFIGURATION:
+        description: "Release configuration for the build"
+        type: string
+        default: Release
+      DOTNET_VERSION:
+        description: "Dotnet SDK Version to use"
+        type: string
+      PROJECT_PATH:
+        description: "Directory for the test project"
+        type: string
+  workflow_call:
+    inputs:
+      CONFIGURATION:
+        description: "Release configuration for the build"
+        type: string
+        required: false
+      DOTNET_VERSION:
+        description: "Dotnet SDK Version to use"
+        type: string
+        required: false
+      PROJECT_PATH:
+        description: "Directory for the test project"
+        type: string
+        required: false
+
+jobs:
+  test:
+    name: Build and Test Project
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ inputs.DOTNET_VERSION }}
+
+      - name: Run Test Suite
+        run: dotnet test ${{ inputs.PROJECT_PATH }} --configuration ${{ inputs.CONFIGURATION }}
