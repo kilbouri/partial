@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 namespace Partial.SystemTextJson.Tests;
 
 /// <summary>
-/// Class responsible for testing that the deserialization of properties is tracked as Defined when case sensativity is enabled.
+/// Class responsible for testing that the deserialization of properties is tracked as Defined when case sensitivity is enabled.
 /// </summary>
 [TestFixture]
 public class CaseSensitiveDeserializationPartialTests
