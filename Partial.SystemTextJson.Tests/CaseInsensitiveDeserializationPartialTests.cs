@@ -6,10 +6,10 @@ using System.Text.Json.Serialization;
 namespace Partial.SystemTextJson.Tests;
 
 /// <summary>
-/// Class responsible for testing that the serialization of properties is tracked as Defined when case insensativity is enabled.
+/// Class responsible for testing that the deserialization of properties is tracked as Defined when case insensitivity is enabled.
 /// </summary>
 [TestFixture]
-public class CaseInsensitivePartialTests
+public class CaseInsensitiveDeserializationPartialTests
 {
     /// <summary>
     /// Generate a local serializer option set to allow for usage of the customer SystemTextJson converter.
@@ -19,7 +19,7 @@ public class CaseInsensitivePartialTests
         PropertyNameCaseInsensitive = true
     };
 
-    public CaseInsensitivePartialTests()
+    public CaseInsensitiveDeserializationPartialTests()
     {
         SerializerOptions.Converters.Add(new PartialJsonConverter());
     }
