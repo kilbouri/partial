@@ -1,0 +1,16 @@
+name: Main - Pull Request Runner
+
+on:
+    workflow_dispatch:
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    test-system-text-json:
+        name:  Test System.Text.Json Project
+        uses: ./.github/workflows/run-tests.yml
+        with:
+            CONFIGURATION: Release
+            DOTNET_VERSION: 10.0.x
+            PROJECT_PATH: ./Partial.SystemTextJson.Tests/Partial.SystemTextJson.Tests.csproj
