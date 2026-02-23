@@ -24,8 +24,8 @@ public class CaseInsensitiveDeserializationPartialTests
         SerializerOptions.Converters.Add(new PartialJsonConverter());
     }
 
-    [Test]
-    public void PartialModelSerializesCorrectProperties()
+    [Test, Category("deserialization")]
+    public void PartialModelDeserializesCorrectProperties()
     {
         // Arrange
         var inboundJson = """
@@ -46,8 +46,8 @@ public class CaseInsensitiveDeserializationPartialTests
         model.IsDefined(x => x.BankBalance).ShouldBeTrue();
     }
 
-    [Test]
-    public void PartialModelAllCapsSerializesCorrectProperties()
+    [Test, Category("deserialization")]
+    public void PartialModelAllCapsDeserializesCorrectProperties()
     {
         // Arrange
         var inboundJson = """
@@ -68,8 +68,8 @@ public class CaseInsensitiveDeserializationPartialTests
         model.IsDefined(x => x.BankBalance).ShouldBeTrue();
     }
 
-    [Test]
-    public void PartialModelAllLowerSerializesCorrectProperties()
+    [Test, Category("deserialization")]
+    public void PartialModelAllLowerDeserializesCorrectProperties()
     {
         // Arrange
         var inboundJson = """
@@ -91,8 +91,8 @@ public class CaseInsensitiveDeserializationPartialTests
     }
 
 
-    [Test]
-    public void PartialModelWithMissingPropertiesSerializesCorrectProperties()
+    [Test, Category("deserialization")]
+    public void PartialModelWithMissingPropertiesDeserializesCorrectProperties()
     {
         // Arrange
         var inboundJson = """

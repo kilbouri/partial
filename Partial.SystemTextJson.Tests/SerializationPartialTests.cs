@@ -25,8 +25,8 @@ public class SerializationPartialTests
         SerializerOptions.Converters.Add(new PartialJsonConverter());
     }
 
-    [Test]
-    public void PartialModelSerializesAllProperties()
+    [Test, Category("deserialization")]
+    public void PartialModelDeserializesAllProperties()
     {
         // Arrange
         var inboundJson = """
@@ -47,7 +47,7 @@ public class SerializationPartialTests
         model.IsDefined(x => x.Name).ShouldBeTrue();
     }
 
-    [Test]
+    [Test, Category("deserialization")]
     public void PartialModelDoesNotDefineMissingBankBalance()
     {
         // Arrange
@@ -68,7 +68,7 @@ public class SerializationPartialTests
         model.IsDefined(x => x.Name).ShouldBeTrue();
     }
 
-    [Test]
+    [Test, Category("serialization")]
     public void PartialModelSerializesWithDefinedProperties()
     {
         // Arrange
