@@ -6,23 +6,11 @@ using System.Text.Json.Serialization;
 namespace Partial.SystemTextJson.Tests;
 
 /// <summary>
-/// Local model used for testing serialization between string and symbol.
-/// Uses the <see cref="JsonPropertyNameAttribute"/> to make property checking consistent between steps.
+/// Class handles performing tests to make sure that deserialization and serialization of models acts as expected. JSON properties are loaded into a 
+/// local model to check of the value has been tracked as "defined" correctly.
 /// </summary>
-file class TestUser : Partial<TestUser>
-{
-    [JsonPropertyName("name")]
-    public string Name { get; set; } = string.Empty;
-
-    [JsonPropertyName("age")]
-    public int Age { get; set; } = -1;
-
-    [JsonPropertyName("bankBalance")]
-    public double BankBalance { get; set; } = 0f;
-}
-
 [TestFixture]
-public class PartialTests
+public class SerializationPartialTests
 {
     /// <summary>
     /// Generate a local serializer option set to allow for usage of the customer SystemTextJson converter.
@@ -32,13 +20,13 @@ public class PartialTests
         PropertyNameCaseInsensitive = true
     };
 
-    public PartialTests()
+    public SerializationPartialTests()
     {
         SerializerOptions.Converters.Add(new PartialJsonConverter());
     }
 
-    [Test]
-    public void PartialModelSerializesAllProperties()
+    [Test, Category("deserialization")]
+    public void PartialModelDeserializesAllProperties()
     {
         // Arrange
         var inboundJson = """
@@ -59,7 +47,7 @@ public class PartialTests
         model.IsDefined(x => x.Name).ShouldBeTrue();
     }
 
-    [Test]
+    [Test, Category("deserialization")]
     public void PartialModelDoesNotDefineMissingBankBalance()
     {
         // Arrange
@@ -80,7 +68,7 @@ public class PartialTests
         model.IsDefined(x => x.Name).ShouldBeTrue();
     }
 
-    [Test]
+    [Test, Category("serialization")]
     public void PartialModelSerializesWithDefinedProperties()
     {
         // Arrange
@@ -93,20 +81,37 @@ public class PartialTests
 
         // Act
         var model = JsonSerializer.Deserialize<TestUser>(inboundJson, SerializerOptions);
+        var outboundJson = JsonSerializer.Serialize(model, SerializerOptions);
 
-        // Assert
+        using var document = JsonDocument.Parse(outboundJson);
+        var propertyNames = document.RootElement.EnumerateObject().Select(x => x.Name).ToHashSet();
+
+        // Assert - Deserialize
         model.ShouldNotBeNull();
         model.IsDefined(x => x.BankBalance).ShouldBeFalse();
         model.IsDefined(x => x.Age).ShouldBeTrue();
         model.IsDefined(x => x.Name).ShouldBeTrue();
 
-        var outboundJson = JsonSerializer.Serialize(model, SerializerOptions);
-
-        using var document = JsonDocument.Parse(outboundJson);
-        var propertyNames = document.RootElement.EnumerateObject().Select(x => x.Name).ToHashSet();
+        // Assert - Serialize
         propertyNames.ShouldNotBeEmpty();
         propertyNames.ShouldContain("name");
         propertyNames.ShouldContain("age");
         propertyNames.ShouldNotContain("bankBalance");
     }
+}
+
+/// <summary>
+/// Local model used for testing serialization between string and symbol.
+/// Uses the <see cref="JsonPropertyNameAttribute"/> to make property checking consistent between steps.
+/// </summary>
+file class TestUser : Partial<TestUser>
+{
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = string.Empty;
+
+    [JsonPropertyName("age")]
+    public int Age { get; set; } = -1;
+
+    [JsonPropertyName("bankBalance")]
+    public double BankBalance { get; set; } = 0f;
 }
